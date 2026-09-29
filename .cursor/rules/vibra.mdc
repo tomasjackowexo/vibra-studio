@@ -1,0 +1,30 @@
+---
+description: Pravidlá projektu VIBRA
+alwaysApply: true
+---
+
+Projekt: VIBRA · frekvenčné štúdio, Nitra – prémiový web a rezervačný systém pre sedenia s prístrojom BICOM optima®.
+Jazyk webu: slovenčina. Kód a komentáre: angličtina.
+
+STACK: Next.js 15 (App Router, Server Actions, src/ adresár), TypeScript strict, Tailwind CSS v4, Drizzle ORM, Neon Postgres, Auth.js v5, Resend + React Email, Zod, React Hook Form, Motion, MDX pre obsah, Cloudflare Turnstile. Deploy Vercel, repo GitHub.
+
+DIZAJN (dodržuj prísne, cieľ je prémiový, pokojný, magazínový dojem):
+- farby: bg #FAFAF9, surface #FFFFFF, surface-2 #F2F2F0, ink #2E2E32, muted #8B8B90, gold #C2A062, gold-dark #B8893E, gold-light #F0E8D6, line #E7E7E4, hero gradient #F3ECDD → #F7F7F5
+- fonty: Geist (sans 300–600), Instrument Serif italic na akcentové slová v nadpisoch (farba gold)
+- typografia: obrovské nadpisy (clamp do 7.5rem), letter-spacing -0.035em, line-height 1.02, text-wrap balance
+- zaoblenia: karty 28px, hero 40px, tlačidlá pill; 1px linky namiesto tieňov
+- rozloženie: max-width 1200px, sekčné medzery clamp 56–110px, bento gridy
+- animácie: jemné (fade + 12px posun, stagger 60ms), rešpektuj prefers-reduced-motion
+- mobil prvý: pevné CTA "Rezervovať" dole, nav ako glass pill
+- logo: zlatý kruh so sínusovou vlnou (komponent Logo) – nemeň ho
+- obrázky: next/image, teplé tóny, placeholdery z Unsplash (linen, calm interior, soft light, hands, tea)
+- používaj existujúce UI komponenty zo src/components/ui, nevytváraj duplicitné
+
+OBSAH:
+- všetky texty sú v src/content (TS a MDX), komponenty ich len renderujú – NEPÍŠ vlastné marketingové texty, ak obsah chýba, použi "[TEXT: opis čo tam má byť]"
+- stránky majú príznak zone: "ad" alebo "info"
+- zone "ad" (landing pages pre reklamy): žiadne názvy ochorení, žiadne slová liečba, diagnostika, vyliečiť
+- zone "info": môže informovať o metóde, vždy s disclaimerom, že nejde o zdravotnú starostlivosť
+- na každej stránke pätička s disclaimerom; BICOM optima® vždy so ®
+
+KÓD: server components defaultne, validácia na serveri (Zod), žiadne tajomstvá v klientovi, časy v DB v UTC, zobrazenie Europe/Bratislava, SEO metadata a JSON-LD na každej stránke, aplikácia nesmie padnúť bez DATABASE_URL.
