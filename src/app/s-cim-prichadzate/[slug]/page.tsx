@@ -64,10 +64,12 @@ export default async function TopicPage({ params }: Props) {
             <p className="mt-4 leading-relaxed">{topic.recommendedSessions}</p>
           </section>
 
+          {topic.testimonial ? (
           <blockquote className="font-serif text-[clamp(1.5rem,3vw,2.1rem)] leading-snug text-gold italic">
             {topic.testimonial.quote}
             <footer className="mt-4 font-sans text-sm text-muted not-italic">{topic.testimonial.author}</footer>
           </blockquote>
+          ) : null}
 
           {topic.zone === "info" ? <InfoDisclaimer extra={topic.extraDisclaimer} /> : null}
 

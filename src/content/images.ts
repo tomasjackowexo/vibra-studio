@@ -10,10 +10,10 @@ export const images = {
 } as const;
 
 export const imageAlts = {
-  linen: "[TEXT: popis fotografie plátna, 6–10 slov]",
-  tea: "[TEXT: popis fotografie čaju, 6–10 slov]",
-  interior: "[TEXT: popis pokojného interiéru, 6–10 slov]",
-  light: "[TEXT: popis mäkkého svetla, 6–10 slov]",
-  hands: "[TEXT: popis fotografie rúk, 6–10 slov]",
-  calm: "[TEXT: popis pokojného priestoru, 6–10 slov]",
+  linen: "Svetlé ľanové plátno v mäkkom dennom svetle",
+  tea: "Šálka bylinkového čaju na drevenom stolíku",
+  interior: "Pokojný interiér v teplých prírodných tónoch",
+  light: "Mäkké svetlo dopadajúce cez záves do izby",
+  hands: "Uvoľnené ruky položené na mäkkej deke",
+  calm: "Tichý priestor s lôžkom pripravený na oddych",
 } as const;

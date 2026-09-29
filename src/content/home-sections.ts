@@ -2,30 +2,30 @@ import { imageAlts, images } from "@/content/images";
 
 export const topicsIntro = {
   label: "S čím prichádzate",
-  title: "[TEXT: nadpis benta tém, 3–6 slov]",
-  accent: "[TEXT: akcent, 1–2 slová]",
-  perex: "[TEXT: perex k témam, 18–28 slov]",
+  title: "S čím k nám ľudia",
+  accent: "prichádzajú.",
+  perex: "Ľudia k nám nechodia s diagnózou, ale s pocitom. Že nevedia vypnúť, zle spia alebo chcú konečne niečo zmeniť.",
 };
 
 export const howItWorks = {
   label: "Ako to prebieha",
-  title: "[TEXT: nadpis troch krokov, 3–6 slov]",
-  accent: "[TEXT: akcent, 1–2 slová]",
-  perex: "[TEXT: perex k vlne napätie a pokoj, 18–28 slov]",
+  title: "Od napätia",
+  accent: "k pokoju.",
+  perex: "Posuňte vlnu a sledujte, ako sa upokojuje. Presne o toto sa počas hodiny v štúdiu snažíme aj my.",
   tension: "napätie",
   calm: "pokoj",
   steps: [
     {
-      title: "[TEXT: krok 1, 2–4 slová]",
-      text: "[TEXT: popis kroku 1, 15–25 slov]",
+      title: "Porozprávame sa",
+      text: "Na začiatku sa pri čaji pozastavíme. Poviete nám, ako sa máte a čo od sedenia čakáte.",
     },
     {
-      title: "[TEXT: krok 2, 2–4 slová]",
-      text: "[TEXT: popis kroku 2, 15–25 slov]",
+      title: "Prístroj pracuje",
+      text: "Ležíte oblečení pod dekou. BICOM optima® pracuje s jemnými signálmi, vy len dýchate a odpočívate.",
     },
     {
-      title: "[TEXT: krok 3, 2–4 slová]",
-      text: "[TEXT: popis kroku 3, 15–25 slov]",
+      title: "Vrátite sa k sebe",
+      text: "Po sedení máte čas prebrať sa. Pohár vody, pár slov a návrat do dňa bez zhonu.",
     },
   ],
 };
@@ -39,39 +39,39 @@ export const sessionStepImages = [
 
 export const therapist = {
   label: "Kto sedenie vedie",
-  title: "[TEXT: nadpis predstavenia, 3–6 slov]",
-  accent: "[TEXT: akcent, 1–2 slová]",
-  quote: "[TEXT: citát terapeuta, 18–30 slov]",
-  name: "[TEXT: meno, 2 slová]",
-  role: "[TEXT: rola v štúdiu, 2–5 slov]",
+  title: "Pri vás bude",
+  accent: "Karol.",
+  quote: "Nechcem nikomu sľubovať zázraky. Chcem, aby ste odchádzali pokojnejší, než ste prišli, a aby ste vedeli, prečo sa k nám oplatí vrátiť.",
+  name: "Karol",
+  role: "vedie sedenia",
   image: images.hands,
   imageAlt: imageAlts.hands,
   certificates: [
-    "[TEXT: názov certifikátu, 3–6 slov]",
-    "[TEXT: názov certifikátu, 3–6 slov]",
-    "[TEXT: názov certifikátu, 3–6 slov]",
+    "Zaškolenie na BICOM optima®",
+    "Prax pod vedením Petra Mariša",
+    "Priebežné vzdelávanie v biorezonancii",
   ],
 };
 
 export const leadMagnet = {
   label: "Test",
-  title: "[TEXT: nadpis testu stresu, 4–8 slov]",
-  text: "[TEXT: perex testu, 18–28 slov]",
+  title: "Ako ste na tom so stresom?",
+  text: "Desať otázok, dve minúty. Zistíte, koľko napätia v sebe nosíte, a výsledok vám pošleme e-mailom aj s tipmi, čo s ním.",
   cta: "Test stresu",
   href: "/test",
 };
 
 export const finalCta = {
-  title: "[TEXT: záverečný nadpis, 3–6 slov]",
-  accent: "[TEXT: akcent, 1–2 slová]",
-  text: "[TEXT: záverečná veta, 15–25 slov]",
+  title: "Hodina, ktorá patrí",
+  accent: "len vám.",
+  text: "Vyberte si termín online alebo nám zavolajte. Prvé stretnutie je dlhšie, aby sme sa spoznali a nikam sa neponáhľali.",
 };
 
 export const experiencesIntro = {
   label: "Skúsenosti",
-  title: "[TEXT: nadpis referencií, 3–6 slov]",
-  accent: "[TEXT: akcent, 1–2 slová]",
-  perex: "[TEXT: perex referencií, 18–28 slov]",
+  title: "Čo hovoria",
+  accent: "klienti.",
+  perex: "Nepíšeme za nich. Toto sú slová ľudí, ktorí u nás strávili svoju hodinu a boli ochotní sa podeliť o skúsenosť.",
 };
 
 export const sessionPageIntro = {

@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Blog",
-  description: "[TEXT: perex blogu, 15–25 slov]",
+  description: "Krátke čítanie o strese, spánku, oddychu a o tom, ako si v uponáhľaných dňoch nájsť chvíľu pokoja.",
   path: "/blog",
 });
 
@@ -16,7 +16,7 @@ export default async function BlogPage() {
 
   return (
     <>
-      <PageHero label="Blog" title="Blog" perex="[TEXT: perex blogu, 15–25 slov]" />
+      <PageHero label="Blog" title="Blog" perex="Krátke čítanie o strese, spánku, oddychu a o tom, ako si v uponáhľaných dňoch nájsť chvíľu pokoja." />
       <Section className="pt-0">
         <div className="grid gap-4 md:grid-cols-2">
           {articles.map((article) => (

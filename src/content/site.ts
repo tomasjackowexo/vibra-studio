@@ -11,12 +11,12 @@ export const studio = {
 
 export const openingHours = [
   { days: "Po–Pi", time: "9:00–18:00" },
-  { days: "So–Ne", time: "[TEXT: víkendové hodiny, krátky údaj]" },
+  { days: "So–Ne", time: "podľa dohody" },
 ] as const;
 
 export const socials = [
-  { label: "Instagram", href: "#", value: "[TEXT: odkaz na Instagram, URL]" },
-  { label: "Facebook", href: "#", value: "[TEXT: odkaz na Facebook, URL]" },
+  { label: "Instagram", href: "#", value: "@vibra.studio" },
+  { label: "Facebook", href: "#", value: "VIBRA frekvenčné štúdio" },
 ] as const;
 
 export const navItems = [

@@ -24,26 +24,26 @@ export const faqEntries: FaqEntry[] = [
   { ...pain, category: "Priebeh" },
   {
     category: "Priebeh",
-    question: "[TEXT: otázka o priebehu sedenia, 6–12 slov]",
-    answer: "[TEXT: odpoveď o priebehu, 30–50 slov]",
+    question: "Čo mám robiť počas sedenia?",
+    answer: "Nič. Ležíte oblečení na pohodlnom lôžku, prikrytí dekou, s mäkkými elektródami na rukách a chodidlách. Môžete zavrieť oči, počúvať tichú hudbu alebo zaspať. Mnohí klienti to presne tak aj robia.",
   },
   { ...doctor, category: "Bezpečnosť" },
   { ...who, category: "Bezpečnosť" },
   { ...pay, category: "Ceny a platby" },
   {
     category: "Ceny a platby",
-    question: "[TEXT: otázka o balíčku alebo poukážke, 6–12 slov]",
-    answer: "[TEXT: odpoveď o cene, 25–40 slov]",
+    question: "Oplatí sa kúpiť balíček alebo darčekovú poukážku?",
+    answer: "Balíček 5 sedení stojí 330 € namiesto 375 €, platí 6 mesiacov a hodí sa, ak chcete chodiť pravidelne. Darčekovú poukážku pripravíme na ľubovoľnú službu, stačí nám napísať.",
   },
   {
     category: "O metóde",
-    question: "[TEXT: otázka o prístroji BICOM optima®, 6–12 slov]",
-    answer: "[TEXT: odpoveď o metóde, 30–50 slov]",
+    question: "Čo je BICOM optima® za prístroj?",
+    answer: "Ide o prístroj nemeckej spoločnosti REGUMED, ktorá vyvíja biorezonančné zariadenia od 70. rokov. Je certifikovaný ako zdravotnícka pomôcka rizikovej triedy IIa a používa ho viac ako 10 000 terapeutov v 90 krajinách.",
   },
   {
     category: "O metóde",
-    question: "[TEXT: otázka o tom, čo sedenie nie je, 6–12 slov]",
-    answer: "[TEXT: odpoveď s disclaimerom, 30–50 slov]",
+    question: "Čo sedenie nie je?",
+    answer: "Nie je to lekárske vyšetrenie, diagnostika ani liečba. Neurobíme vám diagnózu a nenahradíme lekára ani lieky. Ponúkame doplnkovú wellness službu, hodinu pokoja a uvoľnenia. Ak máte zdravotné ťažkosti, obráťte sa na lekára.",
   },
 ];
 

@@ -3,7 +3,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Rezervácia",
-  description: "[TEXT: perex rezervácie, 12–20 slov]",
+  description: "Vyberte si službu, deň a čas. Potvrdenie vám príde e-mailom a termín môžete zmeniť do 24 hodín vopred.",
   path: "/rezervacia",
 });
 
@@ -18,7 +18,7 @@ export default async function BookingPage({
     <PageHero
       label="Rezervácia"
       title="Rezervácia"
-      perex={sluzba ? `Služba: ${sluzba}` : "[TEXT: perex rezervácie, 12–20 slov]"}
+      perex={sluzba ? `Služba: ${sluzba}` : "Vyberte si službu, deň a čas. Potvrdenie vám príde e-mailom a termín môžete zmeniť do 24 hodín vopred."}
     />
   );
 }

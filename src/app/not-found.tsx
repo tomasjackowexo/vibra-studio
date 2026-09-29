@@ -8,7 +8,7 @@ export default function NotFound() {
         label="404"
         title="Stránka"
         accent="sa nenašla"
-        perex="[TEXT: text stránky 404, 12–20 slov]"
+        perex="Táto stránka sa niekam stratila. Vráťte sa na úvod a nájdite si cestu k pokoju odtiaľ."
       />
       <div className="px-4">
         <div className="mx-auto max-w-[1200px]">

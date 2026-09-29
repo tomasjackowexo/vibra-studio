@@ -7,7 +7,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "S čím prichádzate",
-  description: "[TEXT: perex rozcestníka tém, 18–28 slov]",
+  description: "Stres, zlý spánok, fajčenie či návyky, ktoré chcete zmeniť. Vyberte si tému a zistite, ako môže sedenie pomôcť práve vám.",
   path: "/s-cim-prichadzate",
 });
 
@@ -20,7 +20,7 @@ export default async function TopicsPage() {
         label="S čím prichádzate"
         title="S čím"
         accent="prichádzate"
-        perex="[TEXT: perex rozcestníka tém, 18–28 slov]"
+        perex="Stres, zlý spánok, fajčenie či návyky, ktoré chcete zmeniť. Vyberte si tému a zistite, ako môže sedenie pomôcť práve vám."
       />
       <Section className="pt-0">
         <div className="grid gap-4 md:grid-cols-2">

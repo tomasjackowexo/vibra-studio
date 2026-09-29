@@ -4,7 +4,7 @@ import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
   title: "Kontakt",
-  description: "[TEXT: perex kontaktu, 12–20 slov]",
+  description: "Napíšte nám, s čím prichádzate. Odpovieme do 48 hodín a úprimne vám povieme, či vám vieme pomôcť.",
   path: "/kontakt",
 });
 
@@ -20,7 +20,7 @@ export default async function ContactPage({
       <PageHero
         label="Kontakt"
         title="Kontakt"
-        perex={kategoria ? `Kategória: ${kategoria}` : "[TEXT: perex kontaktu, 12–20 slov]"}
+        perex={kategoria ? `Kategória: ${kategoria}` : "Napíšte nám, s čím prichádzate. Odpovieme do 48 hodín a úprimne vám povieme, či vám vieme pomôcť."}
       />
       <section className="px-4 pb-16">
         <ul className="mx-auto grid max-w-[1200px] gap-2 text-muted">

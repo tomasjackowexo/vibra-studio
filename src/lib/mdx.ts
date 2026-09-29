@@ -29,10 +29,12 @@ export const topicSchema = z.object({
   help: z.string(),
   flow: z.string(),
   extraDisclaimer: z.string().optional(),
-  testimonial: z.object({
-    quote: z.string(),
-    author: z.string(),
-  }),
+  testimonial: z
+    .object({
+      quote: z.string(),
+      author: z.string(),
+    })
+    .optional(),
   faq: z.array(faqItem).min(1),
 });
 
