@@ -1,7 +1,7 @@
 export const studio = {
   name: "VIBRA",
   tagline: "frekvenčné štúdio",
-  city: "Bratislava",
+  city: "Nitra",
   email: "[e-mail]",
   phone: "[+421 9xx xxx xxx]",
   address: "[adresa prevádzky]",
@@ -9,13 +9,32 @@ export const studio = {
   company: "[obchodné meno · IČO · sídlo]",
 } as const;
 
+export const openingHours = [
+  { days: "Po–Pi", time: "9:00–18:00" },
+  { days: "So–Ne", time: "[TEXT: víkendové hodiny, krátky údaj]" },
+] as const;
+
+export const socials = [
+  { label: "Instagram", href: "#", value: "[TEXT: odkaz na Instagram, URL]" },
+  { label: "Facebook", href: "#", value: "[TEXT: odkaz na Facebook, URL]" },
+] as const;
+
 export const navItems = [
-  { href: "/#metoda", label: "Metóda" },
-  { href: "/#prichadzate", label: "S čím prichádzate" },
-  { href: "/#sedenie", label: "Sedenie" },
-  { href: "/#cennik", label: "Cenník" },
-  { href: "/#o-nas", label: "O nás" },
-  { href: "/#otazky", label: "Otázky" },
+  { href: "/metoda", label: "Metóda" },
+  { href: "/s-cim-prichadzate", label: "S čím prichádzate" },
+  { href: "/sedenie", label: "Sedenie" },
+  { href: "/cennik", label: "Cenník" },
+  { href: "/o-nas", label: "O nás" },
+  { href: "/otazky", label: "Otázky" },
+] as const;
+
+export const footerNav = [
+  ...navItems,
+  { href: "/skusenosti", label: "Skúsenosti" },
+  { href: "/blog", label: "Blog" },
+  { href: "/test", label: "Test" },
+  { href: "/kontakt", label: "Kontakt" },
+  { href: "/kontraindikacie", label: "Kontraindikácie" },
 ] as const;
 
 export const bookingCta = {
@@ -36,7 +55,7 @@ export const footer = {
     note: "Odosielanie zapneme neskôr.",
   },
   legal: [
-    { href: "/ochrana-sukromia", label: "Ochrana osobných údajov" },
+    { href: "/ochrana-udajov", label: "Ochrana osobných údajov" },
     { href: "/obchodne-podmienky", label: "Obchodné podmienky" },
   ],
 } as const;

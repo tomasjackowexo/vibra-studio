@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s · VIBRA frekvenčné štúdio",
   },
   description:
-    "Frekvenčné štúdio v Bratislave. Sedenia so zvukom a jemnou vibráciou, bez výkonu a bez členstva.",
+    "Frekvenčné štúdio v Nitre. Sedenia so zvukom a jemnou vibráciou, bez výkonu a bez členstva.",
   openGraph: {
     locale: "sk_SK",
     siteName: "VIBRA",

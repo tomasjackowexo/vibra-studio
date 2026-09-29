@@ -14,6 +14,7 @@
   --color-ink: #2e2e32;
   --color-muted: #8b8b90;
   --color-gold: #c2a062;
+  --color-gold-dark: #b8893e;
   --color-gold-soft: #f0e8d6;
   --color-line: #e7e7e4;
   --color-hero-a: #f3ecdd;
@@ -84,4 +85,45 @@ h3 {
 
 .marquee-track {
   animation: marquee 38s linear infinite;
+}
+
+.mdx-prose {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: var(--color-ink);
+}
+
+.mdx-prose > * + * {
+  margin-top: 1.15rem;
+}
+
+.mdx-prose h2 {
+  margin-top: 2.5rem;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+}
+
+.mdx-prose h3 {
+  margin-top: 2rem;
+  font-size: 1.4rem;
+}
+
+.mdx-prose a {
+  color: var(--color-gold-dark);
+  text-underline-offset: 3px;
+}
+
+.mdx-prose ul {
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+
+.mdx-dropcap::first-letter {
+  float: left;
+  margin-right: 0.12em;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 4.4rem;
+  font-style: italic;
+  line-height: 0.75;
+  color: var(--color-gold);
 }

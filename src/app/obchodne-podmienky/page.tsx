@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
-import { Section } from "@/components/ui/section";
-import { legalPages } from "@/content/site";
+import { LegalPage } from "@/components/content/legal-page";
+import { getEditorialPage } from "@/lib/mdx";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: legalPages.terms.title,
-};
+export async function generateMetadata() {
+  const page = await getEditorialPage("obchodne-podmienky");
+  return createMetadata({
+    title: page.data.title,
+    description: page.data.excerpt,
+    path: "/obchodne-podmienky",
+  });
+}
 
 export default function TermsPage() {
-  return (
-    <Section className="min-h-[60svh]">
-      <h1 className="text-4xl md:text-5xl">{legalPages.terms.title}</h1>
-      <p className="mt-6 max-w-2xl text-muted">{legalPages.terms.text}</p>
-    </Section>
-  );
+  return <LegalPage name="obchodne-podmienky" />;
 }

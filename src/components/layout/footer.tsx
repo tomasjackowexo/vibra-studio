@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 import { NewsletterForm } from "@/components/layout/newsletter-form";
-import { bookingCta, footer, navItems, studio } from "@/content/site";
+import { bookingCta, footer, footerNav, openingHours, socials, studio } from "@/content/site";
 
 export function Footer() {
   return (
@@ -16,7 +16,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <p className="text-xs tracking-[0.16em] text-muted uppercase">Navigácia</p>
           <ul className="mt-4 space-y-2">
-            {navItems.map((item) => (
+            {footerNav.map((item) => (
               <li key={item.href}>
                 <Link href={item.href} className="hover:text-ink">
                   {item.label}
@@ -33,10 +33,21 @@ export function Footer() {
         <div className="md:col-span-3">
           <p className="text-xs tracking-[0.16em] text-muted uppercase">Kontakt</p>
           <ul className="mt-4 space-y-2">
-            <li>{studio.address}</li>
-            <li>{studio.hours}</li>
+            <li>
+              {studio.address}, {studio.city}
+            </li>
+            {openingHours.map((item) => (
+              <li key={item.days}>
+                {item.days} {item.time}
+              </li>
+            ))}
             <li>{studio.email}</li>
             <li>{studio.phone}</li>
+            {socials.map((item) => (
+              <li key={item.label}>
+                {item.label}: {item.value}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="md:col-span-3">

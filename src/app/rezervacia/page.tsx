@@ -1,22 +1,24 @@
-import type { Metadata } from "next";
-import { Section } from "@/components/ui/section";
+import { PageHero } from "@/components/content/page-hero";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createMetadata({
   title: "Rezervácia",
-  description: "Online rezervácia sedení vo VIBRA sa pripravuje.",
-};
+  description: "[TEXT: perex rezervácie, 12–20 slov]",
+  path: "/rezervacia",
+});
 
-export default function BookingPage() {
+export default async function BookingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sluzba?: string }>;
+}) {
+  const { sluzba } = await searchParams;
+
   return (
-    <Section className="min-h-[70svh]">
-      <div className="flex min-h-[50svh] flex-col justify-center">
-        <h1 className="max-w-3xl text-[clamp(2.4rem,6vw,4.5rem)]">
-          Rezervácia – pripravujeme
-        </h1>
-        <p className="mt-5 max-w-xl text-lg text-muted">
-          Termín zatiaľ dohodneme e-mailom. Formulár na výber služby a času pribudne neskôr.
-        </p>
-      </div>
-    </Section>
+    <PageHero
+      label="Rezervácia"
+      title="Rezervácia"
+      perex={sluzba ? `Služba: ${sluzba}` : "[TEXT: perex rezervácie, 12–20 slov]"}
+    />
   );
 }

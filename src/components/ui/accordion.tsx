@@ -20,7 +20,7 @@ export function Accordion({
         const buttonId = `faq-button-${index}`;
 
         return (
-          <div key={item.question} className="border-t border-line last:border-b">
+          <div key={`${item.question}-${index}`} className="border-t border-line last:border-b">
             <h3>
               <button
                 id={buttonId}

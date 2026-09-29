@@ -21,15 +21,15 @@ export function Hero() {
               {hero.primaryCta}
               <ArrowRight className="size-4" aria-hidden />
             </Button>
-            <Button href="/#cennik" variant="line">
+            <Button href="/cennik" variant="line">
               {hero.secondaryCta}
             </Button>
           </div>
         </div>
-        <div className="relative z-1 mt-6 h-[clamp(160px,22vw,260px)]">
+        <div className="relative z-1 mt-4 h-[clamp(120px,22vw,220px)] sm:mt-6 sm:h-[clamp(160px,22vw,260px)]">
           <WaveCanvas />
         </div>
-        <div className="absolute inset-x-[clamp(22px,5vw,64px)] bottom-6 z-3 flex flex-wrap gap-2.5">
+        <div className="relative z-3 flex flex-wrap gap-2.5 px-[clamp(22px,5vw,64px)] pt-2 pb-6 sm:absolute sm:inset-x-[clamp(22px,5vw,64px)] sm:bottom-6 sm:px-0 sm:pt-0 sm:pb-0">
           {hero.chips.map((chip) => (
             <Chip key={chip.text}>
               <b className="font-semibold">{chip.strong}</b>

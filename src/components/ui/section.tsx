@@ -15,7 +15,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "scroll-mt-28 px-4 py-16 md:py-24",
+        "scroll-mt-28 px-4 py-[clamp(56px,8vw,110px)]",
         tone === "mist" ? "bg-mist" : "bg-bg",
         className,
       )}
