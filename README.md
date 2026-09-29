@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VIBRA
 
-## Getting Started
+Web frekvenčného štúdia VIBRA. Rezervácie, cenník a obsah sa budú neskôr napájať na databázu. Teraz beží lokálne aj bez nej.
 
-First, run the development server:
+## Spustenie
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Aplikácia je na [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Databáza nie je potrebná. Keď bude pripravená Neon Postgres, skopírujte `.env.example` do `.env` a doplňte `DATABASE_URL`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run db:generate
+npm run db:migrate
+npm run db:seed
+```
 
-## Learn More
+`db:seed` zapíše služby, balíček 5 sedení a rozvrh pondelok až piatok 9:00–18:00. Bez `DATABASE_URL` sa nespustí a aplikáciu neshodí.
 
-To learn more about Next.js, take a look at the following resources:
+## Štruktúra
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+src/app            stránky (úvod, rezervácia, právne texty)
+src/components/ui  tlačidlá, karty, accordion, marquee, reveal
+src/components/layout  navigácia, päta, logo, mobilné CTA
+src/components/home    sekcie úvodnej stránky
+src/content        texty oddelené od komponentov
+src/db             Drizzle schéma, pripojenie a seed
+src/lib            cn() a formátovanie ceny
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Texty úvodu sú v `src/content/home.ts`. Navigácia, päta a kontakt sú v `src/content/site.ts`. Kontaktné údaje sú zatiaľ zástupné.
 
-## Deploy on Vercel
+## Čo zatiaľ nie je zapojené
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- online rezervácia (stránka `/rezervacia` je pripravená len ako nadpis)
+- odosielanie newsletteru
+- pripojenie na databázu, kým chýba `DATABASE_URL`

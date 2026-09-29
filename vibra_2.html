@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIBRA frekvenčné štúdio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+:root{
+  --bg:#FAFAF9; --surface:#FFFFFF; --surface-2:#F2F2F0; --ink:#2E2E32; --muted:#8B8B90;
+  --gold:#C2A062; --gold-2:#F0E8D6; --line:#E7E7E4; --glass:rgba(255,255,255,.75);
+  --hero-a:#F3ECDD; --hero-b:#F7F7F5; --dark:#EFEFEC; --on-dark:#2E2E32; --on-dark-muted:#7C7C82;
+  --sans:"Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  --r:28px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--sans);padding-inline:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin-inline:auto}
+h1,h2,h3{margin:0;font-weight:500;letter-spacing:-.035em;line-height:1.02;text-wrap:balance}
+p{margin:0}
+em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;color:var(--gold)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:8px}
+.label{font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:500;display:inline-flex;align-items:center;gap:8px}
+.label::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 26px;border-radius:999px;font:500 .98rem var(--sans);text-decoration:none;border:0;cursor:pointer;transition:transform .2s ease, background .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-dark{background:var(--ink);color:var(--bg)}
+.btn-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn-gold{background:var(--gold);color:#2E2E32}
+.btn svg{width:16px;height:16px}
+
+/* nav */
+.nav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);z-index:20;margin-top:12px}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 18px;border-radius:999px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:30px;height:30px;color:var(--gold)}
+.brand b{font-weight:500;letter-spacing:.28em;font-size:1rem}
+.brand span{font-size:.7rem;color:var(--muted);letter-spacing:.04em;display:block;margin-top:1px}
+.links{display:flex;gap:4px}
+.links a{text-decoration:none;font-size:.9rem;color:var(--muted);padding:8px 14px;border-radius:999px}
+.links a:hover{color:var(--ink);background:var(--surface-2)}
+.nav .btn{height:42px;padding:0 20px;font-size:.9rem}
+@media (max-width:900px){.links{display:none}}
+
+/* hero */
+.hero{position:relative;margin-top:20px;border-radius:40px;overflow:hidden;background:radial-gradient(120% 90% at 85% 10%,var(--hero-a) 0%,transparent 60%),radial-gradient(90% 80% at 0% 100%,var(--hero-a) 0%,transparent 55%),var(--hero-b);box-shadow:inset 0 0 0 1px var(--line)}
+.hero-in{position:relative;z-index:2;padding:clamp(40px,7vw,96px) clamp(22px,5vw,64px) 0;display:grid;gap:28px}
+.hero h1{font-size:clamp(3rem,9vw,7.6rem);max-width:11ch}
+.hero .lead{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:44ch}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px}
+.wave{position:relative;z-index:1;height:clamp(160px,22vw,260px);margin-top:24px}
+.wave canvas{width:100%;height:100%;display:block}
+.chips{position:absolute;z-index:3;left:clamp(22px,5vw,64px);right:clamp(22px,5vw,64px);bottom:24px;display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px var(--line);border-radius:999px;padding:9px 16px;font-size:.88rem;display:flex;gap:8px;align-items:center}
+.chip b{font-weight:600}
+
+/* marquee */
+.marquee{overflow:hidden;margin-block:28px;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.track{display:flex;gap:48px;width:max-content;animation:scroll 38s linear infinite;font-size:clamp(1.3rem,2.4vw,1.9rem);letter-spacing:-.02em;color:var(--muted)}
+.track span{display:flex;align-items:center;gap:48px;white-space:nowrap}
+.track span::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--gold)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+section{padding-block:clamp(56px,8vw,110px)}
+.head{display:grid;gap:16px;margin-bottom:44px;max-width:760px}
+.head h2{font-size:clamp(2.2rem,5vw,4rem)}
+.head p{color:var(--muted);font-size:1.08rem;max-width:56ch}
+
+/* bento */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.tile{background:var(--surface);border-radius:var(--r);padding:30px;box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:12px;align-content:start;min-height:220px}
+.tile h3{font-size:1.5rem}
+.tile p{color:var(--muted)}
+.t-big{grid-column:span 4;background:var(--dark);color:var(--on-dark);box-shadow:none;min-height:320px;align-content:space-between;position:relative;overflow:hidden}
+.t-big p{color:var(--on-dark-muted);max-width:48ch}
+.t-big h3{font-size:clamp(1.8rem,3.4vw,2.6rem);max-width:18ch}
+.t-big .label{color:var(--on-dark-muted)}
+.t-big svg.rings{position:absolute;right:-60px;top:-60px;width:320px;height:320px;color:var(--gold);opacity:.7}
+.t-sm{grid-column:span 2}
+.t-num{font-size:clamp(3rem,6vw,4.5rem);letter-spacing:-.05em;line-height:1;font-weight:400}
+.t-num small{font-size:1rem;color:var(--muted);letter-spacing:0;margin-left:6px}
+.t-third{grid-column:span 2}
+.t-wide{grid-column:span 4}
+@media (max-width:900px){.t-big,.t-wide{grid-column:span 6}.t-sm,.t-third{grid-column:span 3}}
+@media (max-width:560px){.t-sm,.t-third{grid-column:span 6}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.step{border-top:1px solid var(--ink);padding-top:22px;display:grid;gap:10px}
+.step .n{font-family:var(--serif);font-style:italic;font-size:2.6rem;color:var(--gold);line-height:1}
+.step h3{font-size:1.3rem}
+.step p{color:var(--muted);font-size:.97rem}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr;row-gap:36px}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.price{border-radius:var(--r);padding:clamp(28px,4vw,44px);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:22px;align-content:start}
+.price.feat{background:var(--dark);color:var(--on-dark);box-shadow:inset 0 0 0 1px var(--gold-2)}
+.price.feat .muted,.price.feat li{color:var(--on-dark-muted)}
+.price .top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.price h3{font-size:1.5rem}
+.pill{font-size:.75rem;padding:6px 12px;border-radius:999px;background:var(--gold);color:#2E2E32;font-weight:500}
+.amt{font-size:clamp(3.6rem,7vw,5.4rem);letter-spacing:-.06em;line-height:.9;font-weight:400}
+.amt small{font-size:1rem;letter-spacing:0;margin-left:8px;opacity:.7}
+.muted{color:var(--muted)}
+.price ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;color:var(--muted)}
+.price li{display:flex;gap:12px}
+.price li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:radial-gradient(circle,var(--gold) 0 3px,transparent 4px),var(--gold-2)}
+.price.feat li::before{background:radial-gradient(circle,var(--gold) 0 3px,transparent 4px),var(--surface)}
+.price .btn{justify-self:start}
+.payline{margin-top:18px;color:var(--muted);font-size:.95rem;display:flex;gap:18px;flex-wrap:wrap}
+.payline span{display:inline-flex;gap:8px;align-items:center}
+.payline span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
+@media (max-width:760px){.prices{grid-template-columns:1fr}}
+
+/* loyalty */
+.loyal{border-radius:40px;padding:clamp(28px,5vw,64px);background:radial-gradient(100% 120% at 100% 0%,var(--hero-a),transparent 60%),var(--surface-2);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:center}
+.loyal h2{font-size:clamp(2.2rem,5vw,4rem)}
+.big10{font-size:clamp(6rem,16vw,12rem);letter-spacing:-.07em;line-height:.8;font-weight:400;color:var(--gold)}
+.loyal ol{margin:24px 0 0;padding:0;list-style:none;display:grid;gap:14px;counter-reset:l}
+.loyal li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start;color:var(--muted)}
+.loyal li::before{counter-increment:l;content:counter(l);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);font-size:.85rem;font-weight:500}
+.loyal li b{color:var(--ink);font-weight:500}
+.calc{background:var(--surface);border-radius:var(--r);padding:28px;box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:18px}
+.calc label{display:flex;justify-content:space-between;font-size:.95rem;color:var(--muted)}
+.calc output{color:var(--ink);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--gold)}
+.calc .res{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-variant-numeric:tabular-nums}
+.calc .res div{background:var(--surface-2);border-radius:18px;padding:16px}
+.calc .res span{display:block;font-size:.8rem;color:var(--muted)}
+.calc .res b{font-size:1.7rem;font-weight:500;letter-spacing:-.03em}
+.calc .res .g b{color:var(--gold)}
+.calc small{color:var(--muted);font-size:.82rem}
+@media (max-width:860px){.loyal{grid-template-columns:1fr}}
+
+/* booking */
+.book{display:grid;grid-template-columns:1.25fr .75fr;gap:16px}
+.panel{background:var(--surface);border-radius:var(--r);padding:clamp(22px,3vw,34px);box-shadow:inset 0 0 0 1px var(--line);display:grid;gap:22px;align-content:start}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--surface-2);padding:6px;border-radius:18px}
+.seg button{border:0;background:transparent;border-radius:14px;padding:12px;font:500 .92rem var(--sans);color:var(--muted);cursor:pointer;text-align:left}
+.seg button span{display:block;font-weight:400;font-size:.8rem}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08),inset 0 0 0 1px var(--line)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.day{flex:none;width:66px;border:0;border-radius:18px;padding:12px 0;background:var(--surface-2);color:var(--ink);font:500 .8rem var(--sans);cursor:pointer;display:grid;gap:2px;text-align:center}
+.day b{font-size:1.35rem;font-weight:500;letter-spacing:-.03em}
+.day span{color:var(--muted);font-weight:400}
+.day[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.day[aria-pressed="true"] span{color:inherit;opacity:.7}
+.day:disabled{opacity:.35;cursor:not-allowed}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.slot{border:0;border-radius:14px;padding:12px 0;font:500 .95rem var(--sans);background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;font-variant-numeric:tabular-nums}
+.slot:hover{box-shadow:inset 0 0 0 1px var(--gold)}
+.slot[aria-pressed="true"]{background:var(--gold);color:#2E2E32;box-shadow:none}
+.slot:disabled{text-decoration:line-through;color:var(--muted);opacity:.5;cursor:not-allowed}
+.sub{font-size:.85rem;color:var(--muted)}
+form{display:grid;gap:12px}
+.field{display:grid;gap:6px}
+.field label{font-size:.82rem;color:var(--muted)}
+.field input{height:48px;border-radius:14px;border:0;box-shadow:inset 0 0 0 1px var(--line);background:var(--bg);color:var(--ink);padding:0 14px;font:400 1rem var(--sans)}
+.field input:focus{outline:none;box-shadow:inset 0 0 0 2px var(--gold)}
+.check{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:.85rem;color:var(--muted);align-items:start}
+.check input{margin-top:3px;accent-color:var(--gold);width:16px;height:16px}
+.summary{background:var(--surface-2);border-radius:18px;padding:16px;display:grid;gap:4px;font-size:.92rem}
+.summary b{font-weight:600}
+.done{background:var(--dark);color:var(--on-dark);border-radius:18px;padding:20px;display:grid;gap:6px}
+.done p{color:var(--on-dark-muted);font-size:.9rem}
+.demo{font-size:.78rem;color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:10px 12px}
+.book>*,.panel>*{min-width:0}
+@media (max-width:900px){.book{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px}
+.faq .list{display:grid}
+details{border-top:1px solid var(--line);padding-block:20px}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;font-size:1.12rem;font-weight:500;letter-spacing:-.01em}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-weight:300;font-size:1.5rem;line-height:1;color:var(--gold);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px;max-width:60ch}
+@media (max-width:860px){.faq{grid-template-columns:1fr;gap:24px}}
+
+/* contact */
+.contact{border-radius:40px;background:var(--dark);color:var(--on-dark);padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact h2{font-size:clamp(2.2rem,5vw,4rem)}
+.contact p{color:var(--on-dark-muted)}
+.rows{display:grid}
+.row{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding-block:16px;border-bottom:1px solid var(--line)}
+.row span{color:var(--on-dark-muted);font-size:.85rem}
+.row .v{user-select:all}
+.ph{color:var(--gold);font-style:italic}
+.copy{font:500 .78rem var(--sans);background:transparent;border:1px solid var(--line);color:var(--on-dark);border-radius:999px;padding:6px 12px;cursor:pointer}
+@media (max-width:860px){.contact{grid-template-columns:1fr}.row{grid-template-columns:1fr auto}.row span{grid-column:1/-1}}
+
+footer{padding-block:40px 56px;display:grid;gap:16px;color:var(--muted);font-size:.85rem}
+footer .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{max-width:90ch}
+
+@media (prefers-reduced-motion:reduce){.track{animation:none}html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="nav">
+    <div class="nav-in">
+      <a class="brand" href="#top" aria-label="VIBRA frekvenčné štúdio">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="18" cy="32" r="5" fill="currentColor"/><path d="M28 18a20 20 0 0 1 0 28" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><path d="M37 11a30 30 0 0 1 0 42" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".65"/><path d="M46 5a39 39 0 0 1 0 54" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" opacity=".35"/></svg>
+        <div><b>VIBRA</b><span>frekvenčné štúdio</span></div>
+      </a>
+      <nav class="links" aria-label="Hlavná navigácia">
+        <a href="#metoda">Metóda</a>
+        <a href="#cennik">Cenník</a>
+        <a href="#vernostny-program">Vernostný program</a>
+        <a href="#otazky">Otázky</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <a class="btn btn-dark" href="#rezervacia">Rezervovať</a>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="hero-in">
+      <div class="label">BICOM optima® · frekvenčné sedenie</div>
+      <h1>Nalaďte sa na <em>pokoj.</em></h1>
+      <p class="lead">Hodina ticha pre telo aj myseľ. Ľahnete si, vydýchnete a prístroj BICOM optima® pracuje, kým vy odpočívate. Bez ihiel, bez bolesti.</p>
+      <div class="actions">
+        <a class="btn btn-dark" href="#rezervacia">Vybrať termín
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-line" href="#cennik">Cenník od 100 €</a>
+      </div>
+    </div>
+    <div class="wave" aria-hidden="true"><canvas id="wave"></canvas></div>
+    <div class="chips">
+      <div class="chip"><b>60</b> minút pre vás</div>
+      <div class="chip"><b>10 %</b> späť s WEXO</div>
+      <div class="chip">Hotovosť alebo faktúra</div>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      <span>Bez ihiel</span><span>Bez bolesti</span><span>60 minút ticha</span><span>BICOM optima®</span><span>Čas len pre vás</span><span>Tlmené svetlo a deka</span>
+      <span>Bez ihiel</span><span>Bez bolesti</span><span>60 minút ticha</span><span>BICOM optima®</span><span>Čas len pre vás</span><span>Tlmené svetlo a deka</span>
+    </div>
+  </div>
+
+  <section id="metoda">
+    <div class="head">
+      <div class="label">Metóda</div>
+      <h2>Frekvencie, ticho <em>a vy.</em></h2>
+      <p>Počas sedenia ležíte oblečení na pohodlnom lôžku. Mäkké elektródy sú priložené na ruky a chodidlá a prístroj pracuje s jemnými elektromagnetickými signálmi.</p>
+    </div>
+    <div class="bento">
+      <div class="tile t-big">
+        <svg class="rings" viewBox="0 0 320 320" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="160" cy="160" r="40"/><circle cx="160" cy="160" r="75" opacity=".7"/><circle cx="160" cy="160" r="110" opacity=".45"/><circle cx="160" cy="160" r="145" opacity=".25"/></g></svg>
+        <div class="label">O prístroji</div>
+        <div style="display:grid;gap:14px">
+          <h3>BICOM optima® od nemeckého výrobcu REGUMED</h3>
+          <p>Certifikovaný prístroj, s ktorým pracujú terapeuti v celej Európe. U nás ho využívame na relaxačné sedenia v tichom prostredí.</p>
+        </div>
+      </div>
+      <div class="tile t-sm">
+        <div class="label">Dĺžka</div>
+        <div class="t-num">60<small>min</small></div>
+        <p>bežné sedenie, vstupné stretnutie 90 – 120 min</p>
+      </div>
+      <div class="tile t-third">
+        <div class="label">Pocit</div>
+        <h3>Nič necítite, okrem pokoja</h3>
+        <p>Signály sú také jemné, že mnohí klienti počas sedenia zaspia.</p>
+      </div>
+      <div class="tile t-third">
+        <div class="label">Prostredie</div>
+        <h3>Deka, čaj, tlmené svetlo</h3>
+        <p>Žiadny zhon. Po sedení máte čas prebrať sa a vydýchnuť.</p>
+      </div>
+      <div class="tile t-third">
+        <div class="label">Upozornenie</div>
+        <h3>Doplnok, nie náhrada</h3>
+        <p>Sedenie je wellness služba a nenahrádza vyšetrenie ani liečbu u lekára.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="priebeh" style="padding-top:0">
+    <div class="head">
+      <div class="label">Priebeh</div>
+      <h2>Vaša hodina <em>u nás.</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">01</div><h3>Privítanie</h3><p>Pri čaji sa porozprávame, ako sa cítite a čo od sedenia očakávate.</p></div>
+      <div class="step"><div class="n">02</div><h3>Pohodlie</h3><p>Ľahnete si na lôžko s dekou. Priložíme elektródy na ruky a chodidlá.</p></div>
+      <div class="step"><div class="n">03</div><h3>Sedenie</h3><p>Prístroj pracuje, vy odpočívate. Ticho alebo jemná hudba.</p></div>
+      <div class="step"><div class="n">04</div><h3>Návrat</h3><p>Pohár vody a chvíľa na prebratie pred návratom do dňa.</p></div>
+    </div>
+  </section>
+
+  <section id="cennik">
+    <div class="head">
+      <div class="label">Cenník</div>
+      <h2>Dve služby. <em>Jasné ceny.</em></h2>
+    </div>
+    <div class="prices">
+      <div class="price">
+        <div class="top"><h3>Vstupné stretnutie</h3><span class="muted">90 – 120 min</span></div>
+        <div class="amt">130 €</div>
+        <p class="muted">Vo vernostnom programe 117 €</p>
+        <ul>
+          <li>podrobný rozhovor o tom, ako sa cítite a čo očakávate</li>
+          <li>dotazník a prejdenie kontraindikácií</li>
+          <li>zoznámenie s prístrojom a prvé sedenie</li>
+          <li>odporúčanie, ako často sedenia opakovať</li>
+        </ul>
+        <a class="btn btn-dark" href="#rezervacia" data-service="entry">Rezervovať vstupné</a>
+      </div>
+      <div class="price feat">
+        <div class="top"><h3>Bežné sedenie</h3><span class="pill">Najčastejšie</span></div>
+        <div class="amt">100 €<small>/ 60 min</small></div>
+        <p class="muted">Vo vernostnom programe 90 €</p>
+        <ul>
+          <li>krátky rozhovor o tom, ako sa máte od minulého sedenia</li>
+          <li>60 minút s prístrojom BICOM optima®</li>
+          <li>čaj, voda a čas na oddych po sedení</li>
+        </ul>
+        <a class="btn btn-dark" href="#rezervacia" data-service="regular">Rezervovať sedenie</a>
+      </div>
+    </div>
+    <div class="payline"><span>Platba v hotovosti v štúdiu</span><span>Bankový prevod na faktúru</span></div>
+  </section>
+
+  <section id="vernostny-program" style="padding-top:0">
+    <div class="loyal">
+      <div>
+        <div class="label">Vernostný program</div>
+        <div class="big10" style="margin-top:18px">10 %</div>
+        <h2 style="margin-top:14px">späť pri <em>každej</em> návšteve.</h2>
+        <ol>
+          <li><div><b>Zaregistrujte sa</b> v aplikácii WEXO. Je to zadarmo.</div></li>
+          <li><div><b>Pri platbe</b> nám povedzte, že ste vo vernostnom programe.</div></li>
+          <li><div><b>10 % z ceny</b> sa vám pripíše do aplikácie ako cashback.</div></li>
+        </ol>
+      </div>
+      <div class="calc">
+        <label for="n">Počet návštev <output id="nOut">5</output></label>
+        <input id="n" type="range" min="1" max="20" value="5">
+        <div class="res">
+          <div><span>Zaplatíte spolu</span><b id="tot">530 €</b></div>
+          <div class="g"><span>Vrátime vám</span><b id="back">53 €</b></div>
+        </div>
+        <small>Prvá návšteva je vstupné stretnutie (130 €), ďalšie sú bežné sedenia (100 €). Program je dobrovoľný a cena je pre všetkých rovnaká.</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="rezervacia" style="padding-top:0">
+    <div class="head">
+      <div class="label">Rezervácia</div>
+      <h2>Vyberte si <em>termín.</em></h2>
+    </div>
+    <div class="book">
+      <div class="panel">
+        <div class="seg" role="group" aria-label="Služba">
+          <button type="button" id="sv-entry" aria-pressed="true">Vstupné stretnutie<span>90 – 120 min · 130 €</span></button>
+          <button type="button" id="sv-regular" aria-pressed="false">Bežné sedenie<span>60 min · 100 €</span></button>
+        </div>
+        <div>
+          <div class="sub" id="monthLbl" style="margin-bottom:10px"></div>
+          <div class="days" id="days"></div>
+        </div>
+        <div>
+          <div class="sub" style="margin-bottom:10px">Voľné časy</div>
+          <div class="slots" id="slots"></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="summary" id="sum"><span class="sub">Vaša rezervácia</span><b id="sumSvc">Vstupné stretnutie</b><span id="sumWhen" class="muted">Vyberte deň a čas</span></div>
+        <form id="bf" novalidate>
+          <div class="field"><label for="f-name">Meno a priezvisko</label><input id="f-name" required autocomplete="name"></div>
+          <div class="field"><label for="f-tel">Telefón</label><input id="f-tel" type="tel" required autocomplete="tel"></div>
+          <div class="field"><label for="f-mail">E-mail</label><input id="f-mail" type="email" required autocomplete="email"></div>
+          <label class="check"><input id="f-ok" type="checkbox" required><span>Súhlasím so spracovaním osobných údajov a beriem na vedomie, že sedenie je wellness služba, nie zdravotná starostlivosť.</span></label>
+          <button class="btn btn-gold" type="submit" id="f-sub">Potvrdiť rezerváciu</button>
+          <p class="sub" id="f-err" hidden></p>
+        </form>
+        <div class="done" id="done" hidden><b>Termín je pripravený</b><p id="doneTxt"></p></div>
+        <p class="demo">Ukážka rezervačného kalendára. Po napojení na rezervačný systém sa tu budú zobrazovať skutočné voľné termíny a potvrdenie príde e-mailom.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="otazky" style="padding-top:0">
+    <div class="faq">
+      <div class="head" style="margin-bottom:0">
+        <div class="label">Otázky</div>
+        <h2>Pred prvým <em>sedením.</em></h2>
+      </div>
+      <div class="list">
+        <details><summary>Prečo začať vstupným stretnutím?</summary><p>Pri prvej návšteve si nájdeme viac času. Porozprávame sa, prejdeme dotazník, vysvetlíme priebeh a absolvujete prvé sedenie.</p></details>
+        <details><summary>Bolí to?</summary><p>Nie. Elektródy sú mäkké a signály jemné. Väčšina ľudí necíti nič a mnohí počas sedenia zaspia.</p></details>
+        <details><summary>Nahrádza sedenie návštevu lekára?</summary><p>Nie. Ide o doplnkovú wellness službu na oddych a uvoľnenie. Ak máte zdravotné ťažkosti, obráťte sa na lekára a v jeho liečbe pokračujte.</p></details>
+        <details><summary>Kto by sedenie absolvovať nemal?</summary><p>Tehotné ženy, ľudia s kardiostimulátorom alebo iným implantovaným elektronickým prístrojom a ľudia s epilepsiou. Ak si nie ste istí, poraďte sa najprv s lekárom.</p></details>
+        <details><summary>Ako môžem platiť?</summary><p>V hotovosti priamo v štúdiu alebo bankovým prevodom na faktúru.</p></details>
+        <details><summary>Ako funguje vernostný program?</summary><p>Ak máte aplikáciu WEXO, vrátime vám 10 % z ceny: 13 € pri vstupnom stretnutí a 10 € pri bežnom sedení. Je dobrovoľný.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" style="padding-top:0">
+    <div class="contact">
+      <div style="display:grid;gap:16px;align-content:start">
+        <div class="label" style="color:var(--on-dark-muted)">Kontakt</div>
+        <h2>Tešíme sa <em>na vás.</em></h2>
+        <p>Sedenia sú len na objednávku. Zavolajte, napíšte alebo si vyberte termín online.</p>
+        <a class="btn btn-gold" href="#rezervacia" style="justify-self:start;margin-top:8px">Vybrať termín</a>
+      </div>
+      <div class="rows">
+        <div class="row"><span>Adresa</span><div class="v ph" id="c1">[adresa prevádzky]</div><button class="copy" data-t="c1">Kopírovať</button></div>
+        <div class="row"><span>Telefón</span><div class="v ph" id="c2">[+421 9xx xxx xxx]</div><button class="copy" data-t="c2">Kopírovať</button></div>
+        <div class="row"><span>E-mail</span><div class="v ph" id="c3">[e-mail]</div><button class="copy" data-t="c3">Kopírovať</button></div>
+        <div class="row"><span>Hodiny</span><div class="v ph">[Po – Pi 9:00 – 18:00]</div><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="top"><b style="color:var(--ink);font-weight:500;letter-spacing:.2em">VIBRA</b><span class="ph">[obchodné meno · IČO · sídlo]</span></div>
+    <p>Frekvenčné sedenie je doplnková wellness služba. Nie je zdravotnou starostlivosťou, nie je určené na diagnostiku ani liečbu ochorení a nenahrádza odbornú lekársku pomoc. BICOM optima® je registrovaná ochranná známka spoločnosti REGUMED GmbH. · Ochrana osobných údajov</p>
+  </footer>
+</div>
+
+<script>
+/* hero waveform */
+(function(){
+  const cv=document.getElementById('wave'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let w=0,h=0;
+  function size(){const d=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();w=r.width;h=r.height;cv.width=w*d;cv.height=h*d;ctx.setTransform(d,0,0,d,0,0)}
+  function col(){return getComputedStyle(document.documentElement).getPropertyValue('--gold').trim()||'#B8893E'}
+  const lines=[{a:.34,f:1.4,s:.00035,o:0,wd:2,al:.9},{a:.24,f:2.1,s:.0005,o:1.3,wd:1.4,al:.55},{a:.18,f:3.2,s:.0007,o:2.6,wd:1.1,al:.35},{a:.12,f:4.6,s:.0009,o:.8,wd:1,al:.22}];
+  function draw(t){
+    ctx.clearRect(0,0,w,h); const c=col(); const mid=h*.55;
+    lines.forEach(L=>{
+      ctx.beginPath();
+      for(let x=0;x<=w;x+=4){
+        const p=x/w; const env=Math.sin(Math.PI*p);
+        const y=mid+Math.sin(p*Math.PI*2*L.f+t*L.s*6+L.o)*h*L.a*env;
+        x?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      }
+      ctx.strokeStyle=c; ctx.globalAlpha=L.al; ctx.lineWidth=L.wd; ctx.stroke();
+    });
+    ctx.globalAlpha=1;
+  }
+  size(); addEventListener('resize',size);
+  if(reduce) draw(1200); else (function loop(t){draw(t);requestAnimationFrame(loop)})(0);
+})();
+
+/* loyalty calculator */
+(function(){
+  const r=document.getElementById('n'),o=document.getElementById('nOut'),tot=document.getElementById('tot'),back=document.getElementById('back');
+  const fmt=v=>v.toLocaleString('sk-SK',{maximumFractionDigits:0})+' €';
+  function up(){const n=+r.value;const t=130+(n-1)*100;o.textContent=n;tot.textContent=fmt(t);back.textContent=fmt(t*.1)}
+  r.addEventListener('input',up); up();
+})();
+
+/* booking demo */
+(function(){
+  const S={entry:{name:'Vstupné stretnutie',len:'90 – 120 min',price:130,times:['9:00','11:30','14:30','17:00']},
+           regular:{name:'Bežné sedenie',len:'60 min',price:100,times:['9:00','10:15','11:30','13:30','14:45','16:00','17:15']}};
+  let svc='entry',day=null,slot=null;
+  const daysEl=document.getElementById('days'),slotsEl=document.getElementById('slots'),monthLbl=document.getElementById('monthLbl');
+  const DN=['Ne','Po','Ut','St','Št','Pi','So'];
+  const MN=['január','február','marec','apríl','máj','jún','júl','august','september','október','november','december'];
+  const today=new Date(); today.setHours(0,0,0,0);
+  const dates=[]; for(let i=1;dates.length<14;i++){const d=new Date(today);d.setDate(today.getDate()+i);dates.push(d)}
+  function taken(d,t){const k=d.getDate()*31+d.getMonth()*7+t.length*13+parseInt(t);return (k*2654435761>>>0)%5<2}
+  function renderDays(){
+    daysEl.innerHTML='';
+    dates.forEach((d,i)=>{
+      const b=document.createElement('button');b.type='button';b.className='day';
+      b.innerHTML=`<span>${DN[d.getDay()]}</span><b>${d.getDate()}</b><span>${String(d.getMonth()+1).padStart(2,'0')}.</span>`;
+      const closed=d.getDay()===0;b.disabled=closed;
+      b.setAttribute('aria-pressed',day===i?'true':'false');
+      b.setAttribute('aria-label',`${DN[d.getDay()]} ${d.getDate()}. ${MN[d.getMonth()]}${closed?', zatvorené':''}`);
+      b.onclick=()=>{day=i;slot=null;renderDays();renderSlots();sum()};
+      daysEl.appendChild(b);
+    });
+    const d=dates[day??0];monthLbl.textContent=MN[d.getMonth()].charAt(0).toUpperCase()+MN[d.getMonth()].slice(1)+' '+d.getFullYear();
+  }
+  function renderSlots(){
+    slotsEl.innerHTML='';
+    if(day===null){slotsEl.innerHTML='<span class="sub">Najprv vyberte deň.</span>';return}
+    const d=dates[day];
+    S[svc].times.forEach(t=>{
+      const b=document.createElement('button');b.type='button';b.className='slot';b.textContent=t;
+      b.disabled=taken(d,t);b.setAttribute('aria-pressed',slot===t?'true':'false');
+      if(b.disabled)b.setAttribute('aria-label',t+', obsadené');
+      b.onclick=()=>{slot=t;renderSlots();sum()};
+      slotsEl.appendChild(b);
+    });
+  }
+  function sum(){
+    document.getElementById('sumSvc').textContent=`${S[svc].name} · ${S[svc].price} €`;
+    const w=document.getElementById('sumWhen');
+    if(day!==null&&slot){const d=dates[day];w.textContent=`${DN[d.getDay()]} ${d.getDate()}. ${MN[d.getMonth()]} o ${slot} · ${S[svc].len}`}
+    else w.textContent='Vyberte deň a čas';
+  }
+  function setSvc(k){svc=k;slot=null;document.getElementById('sv-entry').setAttribute('aria-pressed',k==='entry');document.getElementById('sv-regular').setAttribute('aria-pressed',k==='regular');renderSlots();sum()}
+  document.getElementById('sv-entry').onclick=()=>setSvc('entry');
+  document.getElementById('sv-regular').onclick=()=>setSvc('regular');
+  document.querySelectorAll('[data-service]').forEach(a=>a.addEventListener('click',()=>setSvc(a.dataset.service)));
+  day=dates.findIndex(d=>d.getDay()!==0);
+  renderDays();renderSlots();sum();
+
+  const f=document.getElementById('bf'),err=document.getElementById('f-err');
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const name=document.getElementById('f-name').value.trim(),tel=document.getElementById('f-tel').value.trim(),mail=document.getElementById('f-mail').value.trim(),ok=document.getElementById('f-ok').checked;
+    let m='';
+    if(day===null||!slot)m='Vyberte deň a čas termínu.';
+    else if(!name||!tel)m='Vyplňte meno a telefón.';
+    else if(!/^\S+@\S+\.\S+$/.test(mail))m='Skontrolujte e-mailovú adresu.';
+    else if(!ok)m='Na rezerváciu potrebujeme váš súhlas.';
+    if(m){err.textContent=m;err.hidden=false;return}
+    err.hidden=true;
+    const d=dates[day];
+    document.getElementById('doneTxt').textContent=`${name}, ${S[svc].name.toLowerCase()} ${d.getDate()}. ${MN[d.getMonth()]} o ${slot}. V ukážke sa rezervácia neodosiela; po napojení systému príde potvrdenie na ${mail}.`;
+    document.getElementById('done').hidden=false;
+  });
+})();
+
+/* copy */
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const el=document.getElementById(b.dataset.t);const t=el.textContent.trim();
+  const ok=()=>{b.textContent='Skopírované';setTimeout(()=>b.textContent='Kopírovať',1500)};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Označené';setTimeout(()=>b.textContent='Kopírovať',1500)};
+  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}
+}));
+</script>
+</body>
+</html>
