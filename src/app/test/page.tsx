@@ -1,3 +1,4 @@
+import { TestForm } from "@/components/forms/test-form";
 import { PageHero } from "@/components/content/page-hero";
 import { createMetadata } from "@/lib/seo";
 
@@ -8,5 +9,18 @@ export const metadata = createMetadata({
 });
 
 export default function TestPage() {
-  return <PageHero label="Test" title="Test stresu" perex="Desať otázok, dve minúty. Zistite, koľko napätia v sebe nosíte, a získajte tipy, čo s ním robiť." />;
+  return (
+    <>
+      <PageHero
+        label="Test"
+        title="Test stresu"
+        perex="Desať otázok, dve minúty. Zistite, koľko napätia v sebe nosíte, a získajte tipy, čo s ním robiť."
+      />
+      <section className="px-4 pb-16">
+        <div className="mx-auto max-w-[1200px]">
+          <TestForm />
+        </div>
+      </section>
+    </>
+  );
 }

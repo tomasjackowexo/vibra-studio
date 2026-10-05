@@ -1,15 +1,16 @@
 "use client";
 
+import { useActionState } from "react";
 import { footer } from "@/content/site";
+import { submitNewsletter, type FormState } from "@/server/forms";
+
+const initial: FormState = { status: "idle", message: "" };
 
 export function NewsletterForm() {
+  const [state, action, pending] = useActionState(submitNewsletter, initial);
+
   return (
-    <form
-      className="mt-4"
-      onSubmit={(event) => {
-        event.preventDefault();
-      }}
-    >
+    <form action={action} className="mt-4">
       <label htmlFor="newsletter-email" className="sr-only">
         E-mail
       </label>
@@ -25,12 +26,15 @@ export function NewsletterForm() {
         />
         <button
           type="submit"
-          className="h-12 shrink-0 cursor-pointer rounded-pill bg-ink px-4 text-sm font-medium text-bg"
+          disabled={pending}
+          className="h-12 shrink-0 cursor-pointer rounded-pill bg-ink px-4 text-sm font-medium text-bg disabled:opacity-50"
         >
           {footer.newsletter.button}
         </button>
       </div>
-      <p className="mt-3 text-xs">{footer.newsletter.note}</p>
+      <p className="mt-3 text-xs" role="status">
+        {state.message || footer.newsletter.note}
+      </p>
     </form>
   );
 }

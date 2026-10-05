@@ -4,7 +4,13 @@ import type { FaqEntry } from "@/content/faq";
 import type { Offer } from "@/content/services";
 
 export function siteUrl() {
-  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  if (configured) return configured;
+
+  const production = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim().replace(/\/$/, "");
+  if (production) return production.startsWith("http") ? production : `https://${production}`;
+
+  return "http://localhost:3000";
 }
 
 export function createMetadata({

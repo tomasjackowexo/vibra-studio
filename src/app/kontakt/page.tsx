@@ -1,3 +1,4 @@
+import { ContactForm } from "@/components/forms/contact-form";
 import { PageHero } from "@/components/content/page-hero";
 import { studio } from "@/content/site";
 import { createMetadata } from "@/lib/seo";
@@ -20,15 +21,22 @@ export default async function ContactPage({
       <PageHero
         label="Kontakt"
         title="Kontakt"
-        perex={kategoria ? `Kategória: ${kategoria}` : "Napíšte nám, s čím prichádzate. Odpovieme do 48 hodín a úprimne vám povieme, či vám vieme pomôcť."}
+        perex={
+          kategoria
+            ? `Kategória: ${kategoria}`
+            : "Napíšte nám, s čím prichádzate. Odpovieme do 48 hodín a úprimne vám povieme, či vám vieme pomôcť."
+        }
       />
       <section className="px-4 pb-16">
-        <ul className="mx-auto grid max-w-[1200px] gap-2 text-muted">
-          <li>{studio.city}</li>
-          <li>{studio.address}</li>
-          <li>{studio.email}</li>
-          <li>{studio.phone}</li>
-        </ul>
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[1fr_280px]">
+          <ContactForm category={kategoria} />
+          <ul className="grid gap-2 text-muted">
+            <li>{studio.city}</li>
+            <li>{studio.address}</li>
+            <li>{studio.email}</li>
+            <li>{studio.phone}</li>
+          </ul>
+        </div>
       </section>
     </>
   );
